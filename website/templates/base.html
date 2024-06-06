@@ -40,10 +40,27 @@
   </div>
 </nav>
 
-    <div>
-{%block content%}
-{%endblock%}
-    </div>
+{%with messages = get_flashed_messages(with_categories=true)%}
+    {%if messages%}
+        {%for category, message in messages%}
+            {%if category == 'error'%}
+                <div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 " role="alert">
+                {{message}}
+                </div>
+
+                {%else%}
+                <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50" role="alert">
+                {{message}}
+                </div>
+            {%endif%}
+        {%endfor%}
+    {%endif%}
+{%endwith%}
+
+<div>
+    {%block content%}
+    {%endblock%}
+</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
 </body>
